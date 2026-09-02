@@ -1,0 +1,215 @@
+{
+  "hinweis": "Messlatte für den Zuständigkeitsfinder. Jede Frage ist an einen realen Katalogeintrag gebunden ('grundlage'). ACHTUNG: Die erwarteten Stellen sind aus dem Katalog abgeleitet, nicht fachlich geprüft. Vor dem Livegang von Menschen gegenlesen lassen, die die tatsächliche Zuständigkeit kennen.",
+  "fragen": [
+    {
+      "frage": "Bei uns in der Straße ist die Ampel kaputt. Wer repariert die?",
+      "erwartete_stelle": "Senatsverwaltung für Mobilität",
+      "grundlage": "1.15.5.1.6",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Im Park bei mir um die Ecke ist eine Bank zerbrochen und das Gras wird nicht gemäht.",
+      "erwartete_stelle": "Straßen- und Grünflächenamt",
+      "grundlage": "1.21.2.4.13",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Ich habe meinen Führerschein verloren und brauche einen neuen.",
+      "erwartete_stelle": "Amt für Bürgerdienste",
+      "grundlage": "1.15.5.4.42",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Wo kann ich mein Auto abmelden?",
+      "erwartete_stelle": "Amt für Bürgerdienste",
+      "grundlage": "1.15.5.4.41",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Mein Personalausweis läuft ab.",
+      "erwartete_stelle": "Amt für Bürgerdienste",
+      "grundlage": "1.9.9.4.4",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Ich möchte Wohngeld beantragen.",
+      "erwartete_stelle": "Amt für Bürgerdienste",
+      "grundlage": "1.19.7.4.1",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Wir bekommen ein Baby. Wo stellt man den Antrag auf Elterngeld?",
+      "erwartete_stelle": "Jugendamt",
+      "grundlage": "1.6.17.4.1",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Ich brauche einen Schwerbehindertenausweis.",
+      "erwartete_stelle": "Landesamt für Gesundheit und Soziales",
+      "grundlage": "1.17.9.2.2",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Wir wollen heiraten. An wen wenden wir uns?",
+      "erwartete_stelle": "Amt für Bürgerdienste",
+      "grundlage": "1.9.11.4.2",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Mein Nachbar macht jede Nacht laute Musik.",
+      "erwartete_stelle": "Ordnungsamt",
+      "grundlage": "1.21.1.4.1",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Wo kann ich mich gegen Grippe impfen lassen?",
+      "erwartete_stelle": "Gesundheitsamt",
+      "grundlage": "1.8.9.4.1",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Mein Kind kommt nächstes Jahr in die Schule. Wer kümmert sich um die Anmeldung?",
+      "erwartete_stelle": "Schul- und Sportamt",
+      "grundlage": "1.3.9.4.3",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Ich suche eine Bücherei in meiner Nähe.",
+      "erwartete_stelle": "Amt für Weiterbildung und Kultur",
+      "grundlage": "1.13.2.4.2",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Ich habe in der U-Bahn meine Tasche liegen lassen. Wo ist das Fundbüro?",
+      "erwartete_stelle": "Tempelhof-Schöneberg",
+      "grundlage": "1.9.6.4.1",
+      "erwarteter_modus": "treffer",
+      "prueft": "Regionalisierung: ein Bezirk für ganz Berlin"
+    },
+    {
+      "frage": "Ich möchte als Heilpraktikerin arbeiten und brauche eine Erlaubnis.",
+      "erwartete_stelle": "Tempelhof-Schöneberg",
+      "grundlage": "1.8.7.4.1",
+      "erwarteter_modus": "treffer",
+      "prueft": "Regionalisierung: ein Bezirk für ganz Berlin"
+    },
+    {
+      "frage": "Ich will einen kleinen Onlineshop aufmachen und muss ein Gewerbe anmelden.",
+      "erwartete_stelle": "Ordnungsamt",
+      "grundlage": "1.23.7.4.6",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "In meiner Mietwohnung ist überall Schimmel und der Vermieter tut nichts.",
+      "erwartete_stelle": "Stadtentwicklungsamt",
+      "grundlage": "1.19.1.4.3",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Ich suche eine Tagesmutter für mein Kind.",
+      "erwartete_stelle": "Jugendamt",
+      "grundlage": "1.6.8.4.2",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Auf unserem Parkplatz steht seit Monaten ein Schrottauto ohne Kennzeichen.",
+      "erwartete_stelle": "Lichtenberg",
+      "grundlage": "1.21.1.4.2",
+      "erwarteter_modus": "treffer",
+      "prueft": "Regionalisierung: ein Bezirk für ganz Berlin"
+    },
+    {
+      "frage": "Auf dem Gehweg vor meinem Haus ist ein großes Loch, da stolpert dauernd jemand.",
+      "erwartete_stelle": "Straßen- und Grünflächenamt",
+      "grundlage": "1.15.5.4.24",
+      "erwarteter_modus": "treffer",
+      "prueft": "Straßenunterhaltung; die Frage zeigt nicht eindeutig auf die regionalisierte Gefahrenstellen-Beseitigung (1.15.5.4.22)"
+    },
+    {
+      "frage": "Ich brauche eine Anerkennung für meinen Assistenzhund.",
+      "erwartete_stelle": "Landesamt für Gesundheit und Soziales",
+      "grundlage": "1.17.9.2.3",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Meine Mutter braucht Pflege zu Hause und wir können das nicht bezahlen.",
+      "erwartete_stelle": "Amt für Soziales",
+      "grundlage": "1.16.4.4.11",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Ich möchte Aufstiegs-BAföG für eine Meisterausbildung beantragen.",
+      "erwartete_stelle": "Charlottenburg-Wilmersdorf",
+      "grundlage": "1.2.3.4.1",
+      "erwarteter_modus": "treffer",
+      "prueft": "Regionalisierung: ein Bezirk für ganz Berlin"
+    },
+    {
+      "frage": "Wie bekomme ich einen Parkausweis für Anwohner?",
+      "erwartete_stelle": "Straßen- und Grünflächenamt",
+      "grundlage": "1.15.5.4.3",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Jemand hat eine alte Matratze auf den Bürgersteig geworfen.",
+      "erwartete_stelle": "Ordnungsamt",
+      "grundlage": "1.21.1.4.13",
+      "erwarteter_modus": "treffer",
+      "prueft": "Bürgersteig ist öffentliche Straße (1.21.1.4.13 Ordnungsamt), nicht Grünanlage (1.21.1.4.14 Straßen- und Grünflächenamt)"
+    },
+    {
+      "frage": "Ich wohne in Pankow, aber vor meiner Arbeitsstelle in Neukölln liegt seit Tagen ein Haufen Sperrmüll.",
+      "erwartete_stelle": "Ordnungsamt",
+      "grundlage": "1.21.1.4.13",
+      "erwarteter_modus": "treffer",
+      "prueft": "Ortsbezug: Bezirk des Mülls (Neukölln), nicht Wohnbezirk (Pankow). Bürgersteig = öffentliche Straße, daher Ordnungsamt"
+    },
+    {
+      "frage": "Der Gehweg vor dem Nachbarhaus wird bei Schnee nie geräumt.",
+      "erwartete_stelle": "Ordnungsamt",
+      "grundlage": "1.21.4.4.6",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Wir möchten die Asche meines Vaters im eigenen Garten beisetzen.",
+      "erwartete_stelle": "Treptow-Köpenick",
+      "grundlage": "1.21.2.4.6",
+      "erwarteter_modus": "treffer",
+      "prueft": "Regionalisierung: ein Bezirk für ganz Berlin"
+    },
+    {
+      "frage": "Ich habe einen Hund angeschafft. Muss ich dafür Steuern zahlen und wo?",
+      "erwartete_stelle": "Finanzämter",
+      "grundlage": "1.20.4.2.11",
+      "erwarteter_modus": "treffer"
+    },
+    {
+      "frage": "Es geht um einen Baum.",
+      "erwartete_stelle": null,
+      "grundlage": null,
+      "erwarteter_modus": "rueckfrage",
+      "prueft": "Mehrdeutigkeit: Straßenbaum, Baum in Grünanlage oder Fällgenehmigung"
+    },
+    {
+      "frage": "Mein Paket von einem Onlinehändler ist nicht angekommen.",
+      "erwartete_stelle": null,
+      "grundlage": null,
+      "erwarteter_modus": "kein_treffer",
+      "prueft": "keine Landesaufgabe - darf nichts erfinden"
+    },
+    {
+      "frage": "Wer koordiniert eigentlich das Berliner Beratungsnetzwerk gegen Rechtsextremismus?",
+      "erwartete_stelle": "Senatsverwaltung für Arbeit, Soziales",
+      "grundlage": "1.1.5.1.8",
+      "erwarteter_modus": "treffer",
+      "prueft": "Auffindbarkeit ohne unmittelbaren Bürgerbezug - der alte Filter hatte diesen Eintrag entfernt"
+    },
+    {
+      "frage": "Ich möchte einen gemeinnützigen Verein gründen und weiß nicht, wo ich anfangen soll.",
+      "erwartete_stelle": null,
+      "grundlage": null,
+      "erwarteter_modus": "kein_treffer",
+      "prueft": "Vereinsregister ist Amtsgericht, Gemeinnützigkeit Finanzamt für Körperschaften - beides keine Landesaufgabe. Muss ehrlich abgelehnt werden"
+    }
+  ]
+}

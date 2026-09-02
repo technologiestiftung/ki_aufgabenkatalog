@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "python build_katalog.py",
+  "functions": {
+    "app.py": {
+      "maxDuration": 60
+    }
+  }
+}

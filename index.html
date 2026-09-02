@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zuständigkeitsfinder · Land Berlin</title>
+<link rel="icon" href="/static/logo_berlin_m_srgb.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/berlin_citizenservice.css" media="all">
+<script src="/static/berlin_citizenservice.js"></script>
+<style>
+/* Nur was das Designsystem nicht mitbringt. Alles andere kommt aus dem Bundle. */
+
+/* Beispielfragen als Schaltflächenreihe */
+.beispiele { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin: 16px 0 0; padding: 0; }
+.beispiele > li { list-style: none; }
+.beispiele__label { font-weight: bold; margin-right: 4px; }
+
+/* Die zuständige Stelle ist die Kernaussage und darf groß auftreten.
+   Darüber eine schlichte Dachzeile - das Designsystem kennt dafür keinen
+   eigenen Baustein, Größe und Farbe entsprechen seiner .caption-Konvention. */
+.antwort__label { font-size: 14px; color: #454545; margin: 0 0 2px 0; }
+.antwort__label + h2 { margin-top: 0; }
+.zustaendig { margin: 0 0 12px 0; }
+.treffer + .treffer { margin-top: 32px; padding-top: 32px; border-top: 1px solid #ccc; }
+.treffer__nummer { display: flex; width: 40px; height: 40px; flex: 0 0 40px;
+                   align-items: center; justify-content: center;
+                   background: #e40422; color: #fff; font-weight: bold; }
+.treffer__zeile { display: flex; gap: 16px; align-items: flex-start; }
+
+/* Beleg: bewusst natives <details> statt .js-accordion. Das Akkordeon des
+   Bundles initialisiert sich nur einmal beim Laden der Seite und erfasst
+   nachträglich eingefügte Ergebnisse nicht. */
+.beleg { margin-top: 16px; }
+.beleg > summary { cursor: pointer; font-weight: bold; padding: 6px 0; }
+.beleg > summary:hover { text-decoration: underline; }
+.beleg__inhalt { background: #ebf1f7; padding: 18px; margin-top: 8px; }
+.beleg__inhalt dt { font-weight: bold; margin-top: 12px; }
+.beleg__inhalt dt:first-child { margin-top: 0; }
+.beleg__inhalt dd { margin: 2px 0 0 0; }
+
+/* Ladeanzeige */
+.laden { display: flex; align-items: center; gap: 12px; padding: 18px 0; }
+.laden__balken { flex: 1; max-width: 320px; height: 4px; background: #dcdcdc; overflow: hidden; }
+.laden__balken::after { content: ""; display: block; width: 40%; height: 100%;
+                        background: #e40422; animation: laden 1.2s ease-in-out infinite; }
+@keyframes laden { 0% { transform: translateX(-100%); } 100% { transform: translateX(350%); } }
+@media (prefers-reduced-motion: reduce) { .laden__balken::after { animation: none; width: 100%; } }
+</style>
+</head>
+<body id="top" class="kiekma">
+
+<nav aria-label="Sprunglinks">
+  <ul class="list--skip-links">
+    <li><a class="link--visible-on-focus" href="#layout-grid">Hauptregion der Seite anspringen</a></li>
+    <li><a class="link--visible-on-focus" href="#footer">Fußzeile der Seite anspringen</a></li>
+  </ul>
+</nav>
+
+<div id="page-wrapper" class="screendefault citizenservice">
+
+  <header id="header">
+    <div class="header__row-portalbrand">
+      <div class="logo">
+        <a href="https://www.berlin.de">
+          <img class="logo" title="Zur Startseite von Berlin.de" src="/static/logo_berlin_m_srgb.svg" alt="Berlin.de">
+        </a>
+      </div>
+    </div>
+    <div class="header__row-pageheader">
+      <div class="pageheader__logo">
+        <p class="textlogo">
+          <a href="/" title="Zur Startseite">
+            <span class="institution">Zuständigkeitsfinder</span>
+            <span class="title">Berlin</span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main id="layout-grid">
+    <div id="layout-grid__area--maincontent">
+
+      <h1>Wer ist zuständig?</h1>
+
+      <div class="block">
+        <p class="intro">
+          Beschreiben Sie Ihr Anliegen in Ihren eigenen Worten. Sie müssen keine
+          Amtsbezeichnungen kennen — wir suchen die passende Stelle für Sie heraus.
+        </p>
+
+        <form id="suchform" role="search">
+          <div class="searchform-slot">
+            <div class="form-group">
+              <label class="notaural" for="frage">Ihr Anliegen</label>
+              <div class="searchterm">
+                <div class="input-wrapper">
+                  <i class="bicon bicon-search lens" aria-hidden="true"></i>
+                  <input type="search" class="form-control search" id="frage" name="frage"
+                         autocomplete="off" enterkeyhint="search"
+                         placeholder="Zum Beispiel: Die Ampel in meiner Straße ist kaputt"
+                         title="Beschreiben Sie hier Ihr Anliegen in Alltagssprache">
+                </div>
+                <button class="submit" type="submit" title="Suchen">
+                  <span class="aural">Suchen</span>
+                  <i class="bicon bicon-arrow-right icon" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <ul class="beispiele">
+          <li class="beispiele__label">Beispiele:</li>
+          <li><button type="button" class="button chip">Mein Personalausweis läuft ab</button></li>
+          <li><button type="button" class="button chip">Im Park ist eine Bank kaputt</button></li>
+          <li><button type="button" class="button chip">Nachbar macht nachts Lärm</button></li>
+          <li><button type="button" class="button chip">Ich habe meine Tasche verloren</button></li>
+        </ul>
+      </div>
+
+      <div id="ergebnis" aria-live="polite" aria-busy="false"></div>
+
+    </div>
+  </main>
+
+  <footer id="footer">
+    <h2 class="aural">Weitere Informationen zum Auftritt</h2>
+    <div class="footer__brand">
+      <a href="https://www.berlin.de" title="Zur Startseite von Berlin.de">
+        <img title="Zur Startseite von Berlin.de" src="/static/logo_berlin_m_negativ.svg" alt="Berlin.de">
+      </a>
+    </div>
+    <nav class="footer__links" aria-label="Weitere Bereiche auf Berlin.de">
+      <ul class="js-collapse-palm">
+        <li>
+          <h3 class="heading js-trigger">Hilfe</h3>
+          <ul>
+            <li><a href="https://service.berlin.de/buergertelefon/">Bürgertelefon 115</a></li>
+            <li><a href="https://service.berlin.de/">Service-Portal Berlin</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="footer__claim">
+      <p>
+        Grundlage ist der Aufgabenkatalog des Landes Berlin. Die Antworten werden
+        maschinell erzeugt und können Fehler enthalten — im Zweifel hilft die
+        Behördennummer 115 weiter. Bei bezirklichen Aufgaben richtet sich die
+        Zuständigkeit nach dem Ort des Anliegens, bei Leistungen für Sie selbst
+        nach Ihrem Wohnort.
+      </p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const form = document.getElementById('suchform');
+const feld = document.getElementById('frage');
+const ziel = document.getElementById('ergebnis');
+
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => (
+  { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+/** Aufklappbarer Beleg aus dem Aufgabenkatalog. */
+function beleg(treffer) {
+  const d = treffer.details;
+  if (!d) return '';
+  const zeile = (bez, wert) => wert
+    ? `<dt>${bez}</dt><dd>${esc(wert).replace(/\n/g, '<br>')}</dd>` : '';
+  return `
+    <details class="beleg">
+      <summary>Worauf beruht diese Antwort?</summary>
+      <div class="beleg__inhalt"><dl>
+        <dt>Katalognummer</dt><dd>${esc(treffer.nummer)}</dd>
+        ${zeile('Aufgabe', d.Aufgabenbeschreibung)}
+        ${zeile('Umfasst', d.Teilaufgaben)}
+        ${zeile('Thema', d.Handlungsfeld)}
+        ${zeile('Rechtsgrundlage', d.Rechtsgrundlage)}
+      </dl></div>
+    </details>`;
+}
+
+function zeichne(a) {
+  if (a.modus === 'rueckfrage') {
+    ziel.innerHTML = `
+      <div class="block">
+        <h2 class="zustaendig">${esc(a.rueckfrage || a.antwort)}</h2>
+        <p>Bitte wählen Sie aus, worum es geht:</p>
+        <ul class="list--clean">${(a.optionen || []).map(o =>
+          `<li><button type="button" class="button option">${esc(o)}</button></li>`).join('')}</ul>
+      </div>`;
+    ziel.querySelectorAll('.option').forEach(b =>
+      b.addEventListener('click', () => { feld.value = b.textContent; suche(); }));
+
+  } else if (a.modus === 'auswahl') {
+    ziel.innerHTML = `
+      <div class="block">
+        <h2>Mehrere Stellen kommen in Frage</h2>
+        <p class="intro">${esc(a.antwort)}</p>
+        ${(a.treffer || []).map((t, i) => `
+          <div class="treffer">
+            <div class="treffer__zeile">
+              <span class="treffer__nummer" aria-hidden="true">${i + 1}</span>
+              <div>
+                <h3 class="zustaendig">${esc(t.stelle)}</h3>
+                <p>${esc(t.begruendung)}</p>
+                ${beleg(t)}
+              </div>
+            </div>
+          </div>`).join('')}
+      </div>`;
+
+  } else if (a.modus === 'kein_treffer') {
+    ziel.innerHTML = `
+      <div class="block">
+        <div class="message message--info">
+          <p class="title"><strong>Nichts Passendes gefunden</strong></p>
+          <p>${esc(a.antwort)}</p>
+        </div>
+      </div>`;
+
+  } else {
+    const t = (a.treffer || [])[0] || {};
+    // Die h1 stellt die Frage, die h2 gibt die Antwort - deshalb steht hier die
+    // Stelle als Überschrift und nicht das Etikett "Zuständig ist".
+    ziel.innerHTML = `
+      <div class="block">
+        <p class="antwort__label">Zuständig ist</p>
+        <h2>${esc(t.stelle || 'Keine Stelle genannt')}</h2>
+        <p class="intro">${esc(a.antwort)}</p>
+        ${beleg(t)}
+      </div>`;
+  }
+  const kopf = ziel.querySelector('h2');
+  if (kopf) { kopf.setAttribute('tabindex', '-1'); kopf.focus(); }
+}
+
+async function suche() {
+  const frage = feld.value.trim();
+  if (!frage) { feld.focus(); return; }
+
+  form.querySelector('.submit').disabled = true;
+  ziel.setAttribute('aria-busy', 'true');
+  ziel.innerHTML = `
+    <div class="block">
+      <div class="laden">
+        <span>Der Aufgabenkatalog wird durchsucht …</span>
+        <span class="laden__balken" aria-hidden="true"></span>
+      </div>
+    </div>`;
+
+  try {
+    const antwort = await fetch('/api/suche', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ frage })
+    });
+    const daten = await antwort.json();
+    if (!antwort.ok) throw new Error(daten.detail || 'Unbekannter Fehler');
+    zeichne(daten);
+  } catch (fehler) {
+    ziel.innerHTML = `
+      <div class="block">
+        <div class="message message--error">
+          <p class="title"><strong>Die Suche hat nicht funktioniert.</strong></p>
+          <p>${esc(fehler.message)}</p>
+        </div>
+      </div>`;
+  } finally {
+    form.querySelector('.submit').disabled = false;
+    ziel.setAttribute('aria-busy', 'false');
+  }
+}
+
+form.addEventListener('submit', (e) => { e.preventDefault(); suche(); });
+// Eingabetaste ausdrücklich behandeln - auf implizites Absenden ist kein Verlass.
+feld.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') { e.preventDefault(); suche(); }
+});
+document.querySelectorAll('.chip').forEach(c =>
+  c.addEventListener('click', () => { feld.value = c.textContent; suche(); }));
+</script>
+</body>
+</html>

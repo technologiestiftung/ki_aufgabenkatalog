@@ -1,0 +1,8 @@
+.venv/
+.env
+__pycache__/
+eval_ergebnis.json
+katalog.*.txt
+katalog.index.json
+.vercel/
+.DS_Store
