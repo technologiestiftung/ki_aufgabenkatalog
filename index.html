@@ -45,6 +45,13 @@
                         background: #e40422; animation: laden 1.2s ease-in-out infinite; }
 @keyframes laden { 0% { transform: translateX(-100%); } 100% { transform: translateX(350%); } }
 @media (prefers-reduced-motion: reduce) { .laden__balken::after { animation: none; width: 100%; } }
+
+/* CLB-Logo neben dem Berlin-Logo im Footer, in derselben Größe. Das Bundle
+   begrenzt .footer__brand auf ein einzelnes Logo (max-width: 120px, kein
+   Flex) - hier für zwei Logos gleicher Breite überschrieben. CLB-Logo
+   rechtsbündig, damit die beiden Logos nicht eng beieinander stehen. */
+#footer .footer__brand { max-width: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.footer__brand img { width: 120px; height: auto; }
 </style>
 </head>
 <body id="top" class="kiekma">
@@ -130,6 +137,7 @@
       <a href="https://www.berlin.de" title="Zur Startseite von Berlin.de">
         <img title="Zur Startseite von Berlin.de" src="/static/logo_berlin_m_negativ.svg" alt="Berlin.de">
       </a>
+      <img src="/static/CLB-Logo-2026-RGB.svg" alt="CLB">
     </div>
     <nav class="footer__links" aria-label="Weitere Bereiche auf Berlin.de">
       <ul class="js-collapse-palm">
