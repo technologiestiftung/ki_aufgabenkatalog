@@ -128,8 +128,11 @@ Einwohner unabhängig vom Bezirk. Das Regelwerk unterscheidet deshalb zwischen
 ortsgebundenen und personengebundenen Aufgaben und benennt im ersten Fall den Ort.
 
 **Die Oberfläche nutzt das Designsystem für Bürgerservices des Landes Berlin.**
-Das Bundle liegt vollständig unter `static/` — CSS, JS, 148 Symbolgrafiken und
-die beiden Berlin-Logos. Nichts wird zur Laufzeit von berlin.de nachgeladen, es
+Unter `static/` liegen CSS und JS des Bundles, die beiden Berlin-Logos und das
+CLB-Logo. Die übrigen Symbolgrafiken des Bundles (`.bicon-*`-Masken) wurden
+entfernt, weil die Oberfläche sie nicht nutzt; die CSS verweist noch auf sie.
+Wer ein weiteres Symbol braucht, holt es aus dem Bundle nach. Nichts wird zur
+Laufzeit von berlin.de nachgeladen, es
 gibt keine externen Anfragen und keine Webfonts (das Designsystem setzt auf
 Arial). Projekteigenes CSS steht als kurzer Block in `index.html` und beschränkt
 sich auf das, was das Bundle nicht mitbringt.
