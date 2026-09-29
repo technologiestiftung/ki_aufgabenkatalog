@@ -1,7 +1,6 @@
-"""Misst die Trefferquote des Zuständigkeitsfinders gegen testfragen.json.
+"""Misst die Trefferquote gegen testfragen.json - die Messlatte für Änderungen an Prompt, Filter oder Modell.
 
-Diese Zahl ist die Messlatte: Jede Änderung am Prompt, am Filter oder am Modell
-wird daran gemessen. Aufruf:  ./.venv/bin/python eval.py
+Aufruf:  ./.venv/bin/python eval.py
 """
 
 import json
@@ -60,8 +59,7 @@ def main():
         print(f"  {'':11} erwartet: {e['erwartete_stelle'] or e['erwarteter_modus']}")
         print(f"  {'':11} genannt:  {genannt or (e['antwort'] or {}).get('modus') or e.get('fehlermeldung', '')}")
 
-    # Regel 2 verbietet "Wohnbezirk": bei ortsgebundenen Anliegen zählt der Ort
-    # der Sache, nicht die Wohnung. Verstöße hier sichtbar machen.
+    # Regel 2 verbietet "Wohnbezirk" (bei ortsgebundenen Anliegen zählt der Ort der Sache).
     wohnbezirk = [e for e in ergebnisse
                   if "wohnbezirk" in json.dumps(e["antwort"] or {}, ensure_ascii=False).lower()]
     if wohnbezirk:

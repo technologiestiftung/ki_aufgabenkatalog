@@ -1,8 +1,6 @@
 """Anbindung an ein Sprachmodell über die OpenAI-kompatible Chat-API.
 
-Bewusst modellagnostisch: Basis-URL, Modellname und Schlüssel kommen aus der
-Umgebung. Damit lässt sich Gemini, OpenAI, Claude oder ein selbst gehostetes
-Modell einsetzen, ohne den Code zu ändern.
+Basis-URL, Modell und Schlüssel kommen aus der Umgebung, der Anbieter ist austauschbar.
 """
 
 import hashlib
@@ -37,7 +35,7 @@ def _pflichtwert(name):
 
 @lru_cache(maxsize=1)
 def systemprompt():
-    """Regelwerk plus Aufgabenkatalog. Wird einmal gelesen und gehalten."""
+    """Regelwerk plus Aufgabenkatalog, einmal gelesen."""
     katalog = Path(f"katalog.{PROFIL}.txt")
     if not katalog.exists():
         raise Konfigurationsfehler(
@@ -52,7 +50,7 @@ def _client():
 
 
 def _json_lesen(text):
-    """Antwort in JSON umwandeln, auch wenn das Modell einen Codeblock drumherum setzt."""
+    """Antwort als JSON lesen, auch mit Codeblock drumherum."""
     text = text.strip()
     if text.startswith("```"):
         text = re.sub(r"^```[a-zA-Z]*\n?", "", text)
@@ -60,7 +58,7 @@ def _json_lesen(text):
     try:
         return json.loads(text)
     except json.JSONDecodeError:
-        # Letzter Versuch: das äußerste Objekt aus einer längeren Ausgabe schneiden.
+        # Letzter Versuch: äußerstes Objekt herausschneiden.
         anfang, ende = text.find("{"), text.rfind("}")
         if anfang == -1 or ende <= anfang:
             raise
@@ -69,21 +67,15 @@ def _json_lesen(text):
 
 @lru_cache(maxsize=1)
 def kennung():
-    """Kurzer Fingerabdruck von Regelwerk und Katalog.
-
-    Dient als Namensraum für den Antwortcache: Ändert sich der Prompt oder der
-    Katalog, verfallen gespeicherte Antworten automatisch.
-    """
+    """Fingerabdruck von Regelwerk und Katalog; Namensraum des Antwortcaches."""
     return hashlib.sha256(systemprompt().encode()).hexdigest()[:16]
 
 
 def frage_mit_nutzung(text):
-    """Wie frage(), liefert zusätzlich die Verbrauchsdaten des Aufrufs.
+    """Wie frage(), plus Verbrauchsdaten.
 
-    Die Verbrauchsdaten sind wichtig: Gemini cacht den unveränderten Systemprompt
-    implizit und rechnet die zwischengespeicherten Token günstiger ab. Bleibt
-    `cached` dauerhaft bei null, hat eine Änderung den gemeinsamen Präfix zerstört
-    - das würde sonst nur an der Rechnung auffallen.
+    Gemini cacht den unveränderten Systemprompt und rechnet ihn günstiger ab. Bleibt
+    `gecacht` dauerhaft bei null, hat eine Änderung den Präfix zerstört.
     """
     nachrichten = [
         {"role": "system", "content": systemprompt()},

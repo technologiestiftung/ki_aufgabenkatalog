@@ -15,7 +15,7 @@ from pathlib import Path
 
 try:
     import tiktoken
-except ImportError:  # pragma: no cover - nur für die Größenausgabe nötig
+except ImportError:  # nur für die Tokenzählung
     tiktoken = None
 
 CSV_DATEI = "260706_DB BE_Beschäftigtenportal.csv"
@@ -29,9 +29,7 @@ PROFILE = {
     "kompakt": (0, False),
 }
 
-# Das vierte Segment der Laufenden Nummer kodiert Verwaltungsebene und Aufgabenart
-# eindeutig (über alle 2429 Zeilen geprüft). Für die Antwortqualität zählt vor allem,
-# ob eine Stelle eine Aufgabe ausführt oder nur grundsätzlich regelt.
+# Kurzformen; wichtig ist, ob eine Stelle eine Aufgabe ausführt oder nur regelt.
 AUFGABENART = {
     "Leitungsaufgabe": "Grundsatz/Leitung",
     "Steuerungsaufgabe": "Steuerung",
@@ -47,12 +45,7 @@ def leer(wert):
 
 
 def buergerrelevant(zeile):
-    """Nur für den optionalen Sparumfang: hat die Aufgabe erkennbaren Außenbezug?
-
-    Wird ausschließlich gebraucht, wenn KATALOG_UMFANG=buerger gesetzt ist, weil
-    das Modell ein kleines Kontextfenster hat. Im Regelfall geht der vollständige
-    Katalog in den Kontext - siehe verwaltungsintern().
-    """
+    """Erkennbarer Außenbezug? Nur für KATALOG_UMFANG=buerger (kleines Kontextfenster)."""
     zielgruppen, wirkungsbereich = zeile["Zielgruppen"], zeile["Wirkungsbereich"]
 
     if not leer(zielgruppen) and "Bürger" not in zielgruppen:
@@ -63,15 +56,10 @@ def buergerrelevant(zeile):
 
 
 def verwaltungsintern(zeile):
-    """Aufgabe ohne jeden Außenbezug - reine Binnenarbeit der Verwaltung.
+    """Aufgabe ohne Außenbezug.
 
-    Maßgeblich ist Wirkungsbereich, nicht Zielgruppen: Eine Aufgabe mit der
-    Zielgruppe "Unternehmen" ist nicht intern, sie hat nur ein anderes Gegenüber.
-    Wer ein Gewerbe anmelden will, ist eine Bürgerin mit einem Unternehmensanliegen.
-
-    Solche Aufgaben werden nicht entfernt, sondern markiert. Sie bleiben auffindbar
-    - etwa für Vereine, Engagierte oder Presse -, taugen aber nicht als Antwort auf
-    ein praktisches Alltagsanliegen.
+    Maßgeblich ist Wirkungsbereich, nicht Zielgruppen ("Unternehmen" ist nicht intern).
+    Solche Aufgaben werden markiert statt entfernt, damit sie auffindbar bleiben.
     """
     wirkungsbereich = zeile["Wirkungsbereich"].strip().lower()
     return wirkungsbereich.startswith("verwaltungsinter") and "extern" not in wirkungsbereich
@@ -120,17 +108,14 @@ def main():
     with pfad.open(encoding="utf-8-sig", newline="") as f:
         alle = list(csv.DictReader(f, delimiter=";"))
 
-    # Die Tokenzahl ist reine Information. tiktoken lädt seine Kodierungsdatei beim
-    # ersten Aufruf aus dem Netz - im Deployment soll das den Build nicht kippen.
+    # Tokenzahl ist nur Information; tiktoken lädt beim ersten Aufruf aus dem Netz und soll den Build nicht kippen.
     try:
         kodierer = tiktoken.get_encoding("o200k_base") if tiktoken else None
     except Exception as fehler:
         print(f"  (Tokenzählung übersprungen: {fehler})")
         kodierer = None
 
-    # Standard ist der vollständige Katalog: Auch Aufgaben ohne unmittelbaren
-    # Bürgerbezug sollen auffindbar sein. Der Sparumfang ist nur für Modelle mit
-    # kleinem Kontextfenster gedacht.
+    # Standard: vollständiger Katalog; der Sparumfang ist für kleine Kontextfenster.
     umfang = os.getenv("KATALOG_UMFANG", "vollstaendig")
     eintraege = alle if umfang == "vollstaendig" else [z for z in alle if buergerrelevant(z)]
     intern = sum(1 for z in eintraege if verwaltungsintern(z))

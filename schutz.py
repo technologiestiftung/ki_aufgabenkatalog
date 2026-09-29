@@ -1,13 +1,7 @@
-"""Antwortcache für den Suchendpunkt.
+"""Antwortcache für den Suchendpunkt: gleiche Frage, gespeicherte Antwort, kein Modellaufruf.
 
-Gleiche Frage, gespeicherte Antwort, kein Modellaufruf. In einem Bürgerportal
-fragen sehr viele Menschen dasselbe; das spart mehr als jede Token-Optimierung,
-weil die Anfrage gar nicht erst hinausgeht.
-
-Der Cache liegt im Arbeitsspeicher der Instanz. Auf Vercel hält Fluid Compute
-Instanzen zwischen Aufrufen warm, er greift dort also - aber nur innerhalb einer
-warmen Instanz und nicht über einen Kaltstart hinweg. Er ist eine Ersparnis,
-keine Garantie. Kostenobergrenzen gehören in die Google-Konsole.
+Liegt im Arbeitsspeicher der Instanz und greift nur innerhalb einer warmen Instanz,
+nicht über einen Kaltstart hinweg. Kostenobergrenzen gehören in die Google-Konsole.
 """
 
 import hashlib
@@ -26,8 +20,7 @@ def _zahl(name, standard):
 
 class Antwortcache:
     def __init__(self, kennung, ttl_stunden=None, groesse=None):
-        # Ändert sich Regelwerk oder Katalog, ändert sich die Kennung und alle
-        # alten Antworten verfallen automatisch.
+        # Neue Kennung (Prompt oder Katalog geändert) macht alte Antworten ungültig.
         self.kennung = kennung
         self.ttl = (ttl_stunden if ttl_stunden is not None else _zahl("CACHE_TTL_STUNDEN", 168)) * 3600
         self.groesse = groesse if groesse is not None else _zahl("CACHE_MAX", 2000)

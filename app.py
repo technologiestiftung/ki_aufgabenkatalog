@@ -1,8 +1,4 @@
-"""Webdienst für den Zuständigkeitsfinder.
-
-Entrypoint für Vercel: Die Datei heißt app.py und stellt eine FastAPI-Instanz
-namens `app` bereit - genau die Konvention, die Vercel ohne Konfiguration erkennt.
-"""
+"""Webdienst für den Zuständigkeitsfinder. Vercel erkennt app.py mit der FastAPI-Instanz `app` automatisch."""
 
 import json
 import logging
@@ -23,16 +19,13 @@ protokoll = logging.getLogger("zustaendigkeitsfinder")
 DETAILS = json.loads(Path("katalog.index.json").read_text(encoding="utf-8"))
 FRAGE_MAXLAENGE = 500
 
-# Der erste Aufruf trifft Geminis Cache naturgemäß nie, und nach längerer Pause
-# läuft er ab. Erst mehrere magere Aufrufe hintereinander sind ein echtes Zeichen
-# dafür, dass der gemeinsame Präfix zerstört wurde.
+# Der erste Aufruf trifft den Gemini-Cache nie; erst mehrere magere in Folge deuten auf einen zerstörten Präfix hin.
 MAGERE_AUFRUFE_BIS_WARNUNG = 3
 magere_aufrufe = 0
 
 app = FastAPI(title="Zuständigkeitsfinder Berlin")
 
-# Designsystem für Bürgerservices des Landes Berlin. Vercel hebt eingebundene
-# Verzeichnisse beim Bauen aufs CDN, solange keine Top-Level-Middleware im Weg ist.
+# Vercel legt gemountete Verzeichnisse aufs CDN, solange keine Top-Level-Middleware existiert.
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 cache = schutz.Antwortcache(kennung=llm.kennung())

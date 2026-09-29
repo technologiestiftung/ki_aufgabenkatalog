@@ -15,9 +15,7 @@
 .beispiele > li { list-style: none; }
 .beispiele__label { font-weight: bold; margin-right: 4px; }
 
-/* Die zuständige Stelle ist die Kernaussage und darf groß auftreten.
-   Darüber eine schlichte Dachzeile - das Designsystem kennt dafür keinen
-   eigenen Baustein, Größe und Farbe entsprechen seiner .caption-Konvention. */
+/* Dachzeile über der Antwort; Größe und Farbe wie .caption des Bundles. */
 .antwort__label { font-size: 14px; color: #454545; margin: 0 0 2px 0; }
 .antwort__label + h2 { margin-top: 0; }
 .zustaendig { margin: 0 0 12px 0; }
@@ -27,9 +25,7 @@
                    background: #e40422; color: #fff; font-weight: bold; }
 .treffer__zeile { display: flex; gap: 16px; align-items: flex-start; }
 
-/* Beleg: bewusst natives <details> statt .js-accordion. Das Akkordeon des
-   Bundles initialisiert sich nur einmal beim Laden der Seite und erfasst
-   nachträglich eingefügte Ergebnisse nicht. */
+/* Beleg: natives <details>, da .js-accordion nachträglich eingefügte Ergebnisse nicht erfasst. */
 .beleg { margin-top: 16px; }
 .beleg > summary { cursor: pointer; font-weight: bold; padding: 6px 0; }
 .beleg > summary:hover { text-decoration: underline; }
@@ -46,10 +42,7 @@
 @keyframes laden { 0% { transform: translateX(-100%); } 100% { transform: translateX(350%); } }
 @media (prefers-reduced-motion: reduce) { .laden__balken::after { animation: none; width: 100%; } }
 
-/* CLB-Logo neben dem Berlin-Logo im Footer, in derselben Größe. Das Bundle
-   begrenzt .footer__brand auf ein einzelnes Logo (max-width: 120px, kein
-   Flex) - hier für zwei Logos gleicher Breite überschrieben. CLB-Logo
-   rechtsbündig, damit die beiden Logos nicht eng beieinander stehen. */
+/* Footer: zwei Logos gleicher Breite (das Bundle erlaubt nur eines, max-width: 120px), CLB rechtsbündig. */
 #footer .footer__brand { max-width: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .footer__brand img { width: 120px; height: auto; }
 </style>
@@ -231,8 +224,7 @@ function zeichne(a) {
 
   } else {
     const t = (a.treffer || [])[0] || {};
-    // Die h1 stellt die Frage, die h2 gibt die Antwort - deshalb steht hier die
-    // Stelle als Überschrift und nicht das Etikett "Zuständig ist".
+    // h1 stellt die Frage, h2 gibt die Antwort - daher die Stelle als Überschrift.
     ziel.innerHTML = `
       <div class="block">
         <p class="antwort__label">Zuständig ist</p>
@@ -283,7 +275,7 @@ async function suche() {
 }
 
 form.addEventListener('submit', (e) => { e.preventDefault(); suche(); });
-// Eingabetaste ausdrücklich behandeln - auf implizites Absenden ist kein Verlass.
+// Enter ausdrücklich behandeln; implizites Absenden ist unzuverlässig.
 feld.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') { e.preventDefault(); suche(); }
 });
