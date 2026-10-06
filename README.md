@@ -236,6 +236,4 @@ Der vorliegende Code wurde im Rahmen der Prototypenentwicklung erstellt. Ziel de
 Bei der Entwicklung und Dokumentation der Anwendung wurden teilweise KI-basierte Entwicklungswerkzeuge und -agenten eingesetzt. Der Code wurde von unserer Seite keinem systematischen Security-Check oder einer vergleichbaren sicherheitstechnischen Prüfung unterzogen.
 Die Nutzung, Weiterentwicklung und technische Bewertung des Codes erfolgt daher auf eigene Verantwortung. Vor einem Einsatz in produktiven oder sicherheitskritischen Umgebungen empfehlen wir eine entsprechende technische, sicherheitsbezogene und ggf. datenschutzrechtliche Prüfung.
 
-<img width="627" height="348" alt="image" src="https://github.com/user-attachments/assets/2699093b-d34c-4caa-b8da-4eba8d795965" />
-
 
