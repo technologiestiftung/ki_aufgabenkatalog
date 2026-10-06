@@ -231,7 +231,7 @@ bei kaltem Gemini-Cache, 3–8 s bei warmem, 9 ms aus dem Antwortcache.
 Kaltstart kommen rund 0,8 s für das Laden von Katalog und Detailindex hinzu, und
 der Antwortcache beginnt leer.
 
-**Transparenz- und Sicherheitshinweis:**
+## Transparenz- und Sicherheitshinweis
 Der vorliegende Code wurde im Rahmen der Prototypenentwicklung erstellt. Ziel der Entwicklung war insbesondere, den funktionalen Scope zu definieren und die grundsätzliche technische Machbarkeit zu prüfen. Der Code ist daher nicht als produktionsreife Software zu verstehen.
 Bei der Entwicklung und Dokumentation der Anwendung wurden teilweise KI-basierte Entwicklungswerkzeuge und -agenten eingesetzt. Der Code wurde von unserer Seite keinem systematischen Security-Check oder einer vergleichbaren sicherheitstechnischen Prüfung unterzogen.
 Die Nutzung, Weiterentwicklung und technische Bewertung des Codes erfolgt daher auf eigene Verantwortung. Vor einem Einsatz in produktiven oder sicherheitskritischen Umgebungen empfehlen wir eine entsprechende technische, sicherheitsbezogene und ggf. datenschutzrechtliche Prüfung.
