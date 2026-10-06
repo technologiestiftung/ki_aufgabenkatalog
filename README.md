@@ -231,24 +231,4 @@ bei kaltem Gemini-Cache, 3–8 s bei warmem, 9 ms aus dem Antwortcache.
 Kaltstart kommen rund 0,8 s für das Laden von Katalog und Detailindex hinzu, und
 der Antwortcache beginnt leer.
 
-## Offene Punkte vor einem Livegang
 
-- **Testfragen fachlich prüfen.** Die erwarteten Zuständigkeiten in
-  `testfragen.json` sind aus dem Katalog abgeleitet, nicht von Fachleuten
-  bestätigt. Ohne diese Prüfung misst die Messlatte nur Vermutungen.
-- **Datenschutz klären.** Der Katalog ist unkritisch, die Suchanfragen sind es
-  nicht: „Mein Nachbar baut ohne Genehmigung", „Ich brauche Hilfe wegen meiner
-  Schwerbehinderung". Vor dem Livegang AV-Vertrag, Region und Logging des
-  Modellanbieters klären — bei Unsicherheit compliance@ts.berlin.
-- **Kontingent und Budgetwarnung in der Google-Konsole setzen.** Es gibt bewusst
-  keine Ratenbegrenzung im Code — in einer Serverless-Umgebung wäre sie
-  wirkungslos. Damit ist die Google-Konsole die einzige Kostengrenze, und sie
-  ist vor dem Livegang zu setzen, nicht danach.
-- **Barrierefreiheit prüfen.** Tastaturbedienung, Kontraste und `aria-live` sind
-  angelegt, aber nicht gegen BITV 2.0 getestet. Das Designsystem bringt hier
-  einiges mit, ersetzt die Prüfung aber nicht.
-- **Landesredaktion einbeziehen.** Die Dokumentation des Designsystems weist
-  ausdrücklich darauf hin, dass die Design-Variante (Vertical) nicht frei wählbar
-  ist und vor Projektbeginn mit der Landesredaktion von Berlin.de abzustimmen ist.
-- **Bundle aktuell halten.** `static/` ist eine eingefrorene Kopie. Wenn Berlin.de
-  das Designsystem weiterentwickelt, wandert das nicht automatisch mit.
